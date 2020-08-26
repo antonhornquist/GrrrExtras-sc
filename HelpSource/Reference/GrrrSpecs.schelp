@@ -1,0 +1,40 @@
+title:: Grrr Spec support
+summary:: Grrr Spec support
+categories:: External Control
+related:: Overviews/Grrr
+
+section::Specs
+
+Many views has a spec describing possible value ranges of the views numerical representation of its value or contained value (for Multi*Views)
+
+code::
+a=GRVToggle.newDetached(1, 8);
+a.asSpec // [0, 7].asSpec
+
+b=GRButton.newDetached
+b.value.asInteger // false -> 0
+b.toggleValue
+b.value.asInteger // true -> 1
+b.asSpec // [0, 1].asSpec
+::
+
+Specs are handy for converting the mostly discreet values of Grrr widgets to a normalized value 0..1.0
+
+code::
+a.value=7;
+a.asSpec.unmap(a.value); // [0, 7].asSpec.unmap(a.value);
+a.value=4;
+a.asSpec.unmap(a.value);
+a.value=1;
+a.asSpec.unmap(a.value);
+::
+
+See help file for ControlSpec for the whole story...
+
+section::Flash
+
+code::
+c.flashView; // flashView flashes a view (inverts and then resets view after a given time)
+::
+
+

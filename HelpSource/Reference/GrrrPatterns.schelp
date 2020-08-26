@@ -1,0 +1,32 @@
+title:: Grrr Patterns
+summary:: Grrr Patterns
+categories:: External Control
+related:: Overviews/Grrr
+
+section::Pattern support
+
+code::
+a=GRStepView(8, 2);
+a.asPseq;
+a.asPbind.play;
+
+
+(
+var dur, bump;
+dur = 0.25;
+a=Pbind(*[
+	\degree, Pseq([0, \r, 3, 7, 9, 11, \r, 5], inf),
+	\octave, Pseq([4, 3], inf),
+	\pan, Pseq([-1, 0, 0.5, -0.5, 1], inf),
+	\dur, Pfunc({ dur }),
+	\notify, Prout({ var pos = 0; loop { bump.(pos); pos=(pos+1).wrap(0, 7); pos.yield } })
+]);
+b=a.play;
+c=GRScreenGrid(8, 4);
+d=GRHToggle.newDecoupled(c, 0@0, 8, 1);
+bump = { |pos| d.value = pos };
+d.toggleValuePressedAction = { |view, value| dur = ((value+1).reciprocal/2) };
+)
+::
+
+
